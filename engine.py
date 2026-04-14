@@ -14,11 +14,11 @@ def api(url):
     req = urllib.request.Request(url, headers={"Authorization": f"Bearer {GH}"})
     return json.loads(urllib.request.urlopen(req, timeout=15, context=ctx).read())
 
-def get_all_repos(org, per_page=100):
+def get_all_repos(user, per_page=100):
     repos = []
     page = 1
     while True:
-        data = api(f"https://api.github.com/orgs/{org}/repos?per_page={per_page}&page={page}&sort=updated")
+        data = api(f"https://api.github.com/users/{user}/repos?per_page={per_page}&page={page}&sort=updated")
         if not data:
             break
         repos.extend(data)
